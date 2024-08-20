@@ -111,6 +111,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7593d06fbbd658c49bbe174bf53b08a1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4972252871293813017}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7593d06fbbd658c49bbe174bf53b08a1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -2934180271954380134}
   m_SourcePrefab: {fileID: 100100000, guid: 7593d06fbbd658c49bbe174bf53b08a1, type: 3}
 --- !u!1 &8870894726189073198 stripped
 GameObject:
@@ -304,3 +307,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f04e1d9a012453f4b92a0e777f488637, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healingCirclePrefab: {fileID: 0}
+--- !u!114 &-2934180271954380134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8870894726189073198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1

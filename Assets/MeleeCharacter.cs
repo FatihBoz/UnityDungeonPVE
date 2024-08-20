@@ -24,6 +24,4 @@ public abstract class MeleeCharacter : Character //Melee character-specific impl
     {
         weapon.OnAttackStart();
     }
-
-    public abstract IEnumerator Buff(Buff b);
 }

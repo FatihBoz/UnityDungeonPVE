@@ -186,6 +186,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d2c75dcffbe3efb4cb044b74477dcc10, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6810864593174557196}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d2c75dcffbe3efb4cb044b74477dcc10, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5410818659140865259}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d2c75dcffbe3efb4cb044b74477dcc10, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4328512036676457878}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d2c75dcffbe3efb4cb044b74477dcc10, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -3935834000503991164}
   m_SourcePrefab: {fileID: 100100000, guid: d2c75dcffbe3efb4cb044b74477dcc10, type: 3}
 --- !u!4 &556525978443559954 stripped
 Transform:
@@ -363,17 +372,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53eede1ee0ee3464fb2f16ada4817588, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillSO:
-  - {fileID: 11400000, guid: 1643114ba16f9614caa1e4363966d260, type: 2}
-  - {fileID: 11400000, guid: 6cf82fd2362713043aad5ac42b337c0f, type: 2}
   ArrowPrefab: {fileID: 3259855955758044577, guid: 522b0de9c0f41a647a16dd9009e37b0e, type: 3}
-  BombPrefab: {fileID: 7565940492752254187, guid: 712dcf6bb1d40a74d82211cc08597306, type: 3}
   ArrowShootPoint: {fileID: 2213542564331581786}
-  BombShootPoint: {fileID: 4746494246080459854}
-  minTorque: -500
-  maxTorque: 500
-  dodgeDistance: 7
-  dodgeTime: 0.4
 --- !u!95 &6810864593174557196
 Animator:
   serializedVersion: 5
@@ -395,6 +395,69 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5410818659140865259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1327502730693121094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab2028c718b71b748b3f0167f23b92eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buff:
+    buffDuration: 0
+    moveSpeed: 0
+    damageReduction: 0
+    attackSpeed: 0
+  baseCooldown: 0
+  baseDamage: 5
+  BombPrefab: {fileID: 7565940492752254187, guid: 712dcf6bb1d40a74d82211cc08597306, type: 3}
+  BombShootPoint: {fileID: 4746494246080459854}
+  minTorque: -5
+  maxTorque: 5
+  dodgeDistance: 7
+  dodgeTime: 0.4
+--- !u!114 &4328512036676457878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1327502730693121094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1b347254909d504bbea3d19a9ccace1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buff:
+    buffDuration: 0
+    moveSpeed: 0
+    damageReduction: 0
+    attackSpeed: 0
+  baseCooldown: 50
+  baseDamage: 5
+  BombPrefab: {fileID: 7565940492752254187, guid: 712dcf6bb1d40a74d82211cc08597306, type: 3}
+  minTorque: -5
+  maxTorque: 5
+--- !u!114 &-3935834000503991164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1327502730693121094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!4 &8093883121564739129 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7997947301047521070, guid: d2c75dcffbe3efb4cb044b74477dcc10, type: 3}

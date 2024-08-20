@@ -22,15 +22,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c956e7b70ec03724cb59b7a8775479fc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10.227001
+      value: -4.549473
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c956e7b70ec03724cb59b7a8775479fc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.07664
+      value: -4.0766406
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c956e7b70ec03724cb59b7a8775479fc, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.9189827
+      value: 6.335373
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c956e7b70ec03724cb59b7a8775479fc, type: 3}
       propertyPath: m_LocalRotation.w
@@ -123,6 +123,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c956e7b70ec03724cb59b7a8775479fc, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3257435024039703108}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c956e7b70ec03724cb59b7a8775479fc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7740737535251186770}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c956e7b70ec03724cb59b7a8775479fc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1252206307928994823}
     - targetCorrespondingSourceObject: {fileID: 3862085102932151524, guid: c956e7b70ec03724cb59b7a8775479fc, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6163226989179988659}
@@ -148,6 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceMagnitude: 5
+  DamageAmount: 5
   hitEffectPrefab: {fileID: 2944396702758532163, guid: e190bf97c041e58448af6b043116cba0, type: 3}
 --- !u!64 &4721141618879577027
 MeshCollider:
@@ -350,9 +357,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07bec243bd421984b9ee776296f33fe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillSO:
-  - {fileID: 11400000, guid: 9350c4b0002e6b54297e1a4b5ca606ec, type: 2}
-  - {fileID: 11400000, guid: 66331400c91e4b0408c0625a89b50a90, type: 2}
 --- !u!114 &3257435024039703108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -366,3 +370,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BaseMoveSpeed: 4
+--- !u!114 &7740737535251186770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4177409000417215436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b025b01a1a33e24f8b2b76492e752ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buff:
+    buffDuration: 4
+    moveSpeed: 0
+    damageReduction: 0.5
+    attackSpeed: 0
+  baseCooldown: 8
+  baseDamage: 0
+--- !u!114 &1252206307928994823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4177409000417215436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1

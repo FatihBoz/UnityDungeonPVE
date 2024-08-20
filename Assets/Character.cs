@@ -1,42 +1,42 @@
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public abstract class Character : MonoBehaviour , ICharacter //General character implementation
+public abstract class Character : NetworkBehaviour , ICharacter //General character implementation
 {
 
-    [SerializeField] private List<SkillSO> skillSO;
+    protected IPrimarySkill primarySkill;
+    protected ISecondarySkill secondarySkill;
 
-    protected Dictionary<SkillType, Skill> skills = new();
-
-    protected CharacterAnimation anim;
-    protected CharacterMovement movement;
-    protected CharacterAttributes characterAttributes;
-    protected bool isCasting;
+    public CharacterMovement movement { get; private set; }
+    public CharacterAnimation anim { get; private set; }    
+    public CharacterAttributes characterAttributes { get; private set; }    
+    public bool isCasting { get; private set; } 
 
     protected virtual void Awake()
     {
         anim = GetComponent<CharacterAnimation>();
         movement = GetComponent<CharacterMovement>();
         characterAttributes = GetComponent<CharacterAttributes>();
+
+        primarySkill = GetComponent<IPrimarySkill>();
+        secondarySkill = GetComponent<ISecondarySkill>();
     }
 
-    private void Start()
+    public void SetCasting(bool isCasting)
     {
-        foreach (var skill in skillSO)
-        {
-            skills[skill.Type()] = new Skill(skill);
-        }  
+        this.isCasting = isCasting;
     }
 
     #region Animation Events
     protected virtual void OnAnimationStart()
     {
-        isCasting = true;
+        SetCasting(true);
     }
 
     protected virtual void OnAnimationEnd()
     {
-        isCasting = false;
+        SetCasting(false);
     }
     #endregion Animation Events
 
