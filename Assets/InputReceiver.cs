@@ -1,7 +1,8 @@
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputReceiver : MonoBehaviour
+public class InputReceiver : NetworkBehaviour
 {
     public PlayerControl PlayerControl;
     private ICharacter skill;
@@ -23,6 +24,11 @@ public class InputReceiver : MonoBehaviour
 
     public Vector2 GetMoveDirection()
     {
+        if (!IsOwner)
+        {
+            return Vector2.zero;
+        }
+
         Vector2 moveDirection = PlayerControl.Player.Move.ReadValue<Vector2>();
 
         return moveDirection.normalized;   
@@ -30,6 +36,11 @@ public class InputReceiver : MonoBehaviour
 
     public Vector2 GetMousePosition()
     {
+        if (!IsOwner)
+        {
+            return Vector2.zero;
+        }
+
         Vector2 mousePos = PlayerControl.Player.MousePosition.ReadValue<Vector2>();
 
         return mousePos;
@@ -37,21 +48,29 @@ public class InputReceiver : MonoBehaviour
 
     private void OnBasicAttackCasted(InputAction.CallbackContext context)
     {
+        if (!IsOwner) return;
+
         skill?.OnBasicAttackCasted();
     }
 
     private void OnPrimarySkillCasted(InputAction.CallbackContext context)
     {
+        if (!IsOwner) return;
+
         skill?.OnPrimarySkillCasted();
     }
 
     private void OnSecondarySkillCasted(InputAction.CallbackContext context)
     {
+        if (!IsOwner) return;
+
         skill?.OnSecondarySkillCasted();
     }
 
-    private void OnDestroy()
+    public override void OnDestroy()
     {
         PlayerControl.Player.Disable();
     }
+
+    
 }

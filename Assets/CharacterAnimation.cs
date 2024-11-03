@@ -1,29 +1,28 @@
+using Unity.Netcode;
 using UnityEngine;
 
-public class CharacterAnimation : MonoBehaviour //!CAN BE CHANGED.
+public class CharacterAnimation : NetworkBehaviour //!CAN BE CHANGED.
 {
+    public static CharacterAnimation Instance;
+
     private Animator animator;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
-    }
 
-    public void PlayAnimation(string parameterName)
-    {
-        if (animator != null)
-        {
-            animator.SetTrigger(parameterName);
-        }
+        Instance = this;    
     }
 
 
-    public void SetBool(string parameterName, bool value)
+    public void SetTrigger(string parameterName)
     {
-        if (animator != null)
-        {
-            animator.SetBool(parameterName, value);
-        }
+        animator.SetTrigger(parameterName);
+    }
+
+    public void SetBool(string param, bool value)
+    {
+        animator.SetBool(param, value);
     }
 
     public void SetAnimationSpeed(float  speed)

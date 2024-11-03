@@ -52,4 +52,8 @@ public class WarCry : Skill,ISecondarySkill
 
     }
 
+    protected override void UpgradeSkill()
+    {
+        throw new System.NotImplementedException();
+    }
 }

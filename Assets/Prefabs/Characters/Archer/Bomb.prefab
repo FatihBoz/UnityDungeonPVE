@@ -14,7 +14,9 @@ GameObject:
   - component: {fileID: 6041147487476496275}
   - component: {fileID: 7633563454601862144}
   - component: {fileID: -3509219665822560205}
-  - component: {fileID: -6522109577389015129}
+  - component: {fileID: -910641622233221534}
+  - component: {fileID: -5391092852877555857}
+  - component: {fileID: 4895811292787575484}
   m_Layer: 0
   m_Name: Bomb
   m_TagString: Untagged
@@ -147,13 +149,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0e92d95fd9342f4d92a44598a374248, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitEffect: {fileID: 358637981425055526, guid: 8eb503696b886e04faff8fc0f480d473, type: 3}
-  lifeTime: 5
-  moveSpeed: 0
-  damage: 5
-  explosionRadius: 4
-  knockbackForce: 2
---- !u!114 &-6522109577389015129
+  projectile: {fileID: 11400000, guid: 2cdd4972e73b2924a951849ddd764712, type: 2}
+--- !u!114 &-910641622233221534
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -169,3 +166,41 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
+--- !u!114 &-5391092852877555857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7565940492752254187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SyncPositionX: 0
+  SyncPositionY: 1
+  SyncPositionZ: 0
+  SyncRotAngleX: 1
+  SyncRotAngleY: 1
+  SyncRotAngleZ: 1
+  SyncScaleX: 0
+  SyncScaleY: 0
+  SyncScaleZ: 0
+  PositionThreshold: 0.001
+  RotAngleThreshold: 0.01
+  ScaleThreshold: 0.01
+  InLocalSpace: 0
+  Interpolate: 1
+--- !u!114 &4895811292787575484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7565940492752254187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

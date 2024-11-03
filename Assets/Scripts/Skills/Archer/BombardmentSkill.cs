@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.Netcode;
 using UnityEngine;
 
 public class BombardmentSkill : Skill, ISecondarySkill
@@ -19,9 +20,9 @@ public class BombardmentSkill : Skill, ISecondarySkill
 
     public void CastSecondarySkill()
     {
-        if (!archer.isCasting && canUse)
+        if (!archer.isCasting && canUse && NetworkObject.IsOwner)
         {
-            archer.anim.PlayAnimation(AnimationKey.SECONDARY_SKILL);
+            CharacterAnimation.Instance.SetTrigger(AnimationKey.SECONDARY_SKILL);
             StartCoroutine(DropBombs());
             StartCoroutine(Cooldown());
         }
@@ -36,21 +37,28 @@ public class BombardmentSkill : Skill, ISecondarySkill
         while (bombCounter < bombCount)
         {
             Vector3 randomLocation = GetRandomLocation(radius);
-            InstantiateBomb(randomLocation, Vector3.down * 5f);
+
+            InstantiateBombServerRpc(randomLocation, Vector3.down * 5f);
+
             bombCounter++;
             yield return new WaitForSeconds(.25f);
         }
     }
 
-    private void InstantiateBomb(Vector3 position, Vector3 force)
+    [ServerRpc]
+    private void InstantiateBombServerRpc(Vector3 position, Vector3 force)
     {
         GameObject bomb = Instantiate(BombPrefab, position, Quaternion.identity);
+        NetworkObject netBomb = bomb.GetComponent<NetworkObject>();
+
+        netBomb.Spawn(true);
+
         if (bomb.TryGetComponent<Rigidbody>(out var rb))
         {
             rb.AddForce(force, ForceMode.Impulse);
             rb.AddTorque(GetRandomTorque(), ForceMode.Impulse);
         }
-    }
+    }   
 
     private Vector3 GetRandomTorque()
     {
@@ -71,5 +79,10 @@ public class BombardmentSkill : Skill, ISecondarySkill
         float x = transform.position.x + distance * Mathf.Cos(angle * Mathf.Deg2Rad);
         float z = transform.position.z + distance * Mathf.Sin(angle * Mathf.Deg2Rad);
         return new Vector3(x, 5f, z);
+    }
+
+    protected override void UpgradeSkill()
+    {
+        throw new System.NotImplementedException();
     }
 }

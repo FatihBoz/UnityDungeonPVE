@@ -1,3 +1,4 @@
+using Unity.Netcode;
 using UnityEngine;
 
 public class Archer : RangedCharacter
@@ -8,24 +9,36 @@ public class Archer : RangedCharacter
     [Header("** Shoot Points **")]
     public Transform ArrowShootPoint;
 
-    protected override void Awake()
-    {
-        base.Awake();
-        primarySkill = GetComponent<IPrimarySkill>();
-        secondarySkill = GetComponent<ISecondarySkill>();
-    }
-
     public override void OnAttackEnd() => throw new System.NotImplementedException();
     public override void OnAttackStart() => throw new System.NotImplementedException();
 
+
+    //Allow non-owners to call this method
+    [ServerRpc]
+    public void ShootArrowServerRpc()
+    {
+        GameObject arrow = Instantiate(ArrowPrefab, ArrowShootPoint.position, transform.rotation);
+
+        NetworkObject arrowNetworkObject = arrow.GetComponent<NetworkObject>();
+        arrowNetworkObject.Spawn(true);
+
+    }
+
     //Basic attack arrow shooting animation event
-    public void Shoot() => Instantiate(ArrowPrefab, ArrowShootPoint.position, transform.rotation);
+    public void Shoot()
+    {
+        if (IsOwner)
+        {
+            ShootArrowServerRpc();
+        }   
+    }
+
 
     public override void OnBasicAttackCasted()
     {
-        if (!isCasting)
+        if (!isCasting && NetworkObject.IsOwner)
         {
-            anim.PlayAnimation(AnimationKey.BASIC_ATTACK);
+            CharacterAnimation.Instance.SetTrigger(AnimationKey.BASIC_ATTACK);
         }
     }
 

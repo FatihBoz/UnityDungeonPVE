@@ -6,13 +6,13 @@ public abstract class RangedCharacter : Character //Ranged character-specific im
     protected override void OnAnimationStart()
     {
         base.OnAnimationStart();
-        characterAttributes.DecreaseMovementSpeedByPercentage(1);
+        //characterAttributes.DecreaseMovementSpeedByPercentage(1);
     }
 
     protected override void OnAnimationEnd()
     {
         base.OnAnimationEnd();
-        characterAttributes.IncreaseMovementSpeedByPercentage(1);
+        //characterAttributes.IncreaseMovementSpeedByPercentage(1);
     }
 
 

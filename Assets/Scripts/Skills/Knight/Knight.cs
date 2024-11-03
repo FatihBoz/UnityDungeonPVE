@@ -6,9 +6,9 @@ public class Knight : MeleeCharacter //Knight-specific implementation
     //todo: KNIGHT NEEDS A SECONDARY SKILL
     public override void OnBasicAttackCasted()
     {
-        if (!isCasting)
+        if (!isCasting && NetworkObject.IsOwner)
         {
-            anim.PlayAnimation(AnimationKey.BASIC_ATTACK);
+            CharacterAnimation.Instance.SetTrigger(AnimationKey.BASIC_ATTACK);
         }
     }
 

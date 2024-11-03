@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Mage : Character
 {
-    [SerializeField] private GameObject healingCirclePrefab;
+
     public override void OnAttackEnd()
     {
         throw new System.NotImplementedException();
@@ -17,28 +17,17 @@ public class Mage : Character
 
     public override void OnBasicAttackCasted()
     {
-        anim.PlayAnimation(AnimationKey.BASIC_ATTACK);
+        CharacterAnimation.Instance.SetTrigger(AnimationKey.BASIC_ATTACK);
     }
 
     public override void OnPrimarySkillCasted()
     {
-        anim.PlayAnimation(AnimationKey.PRIMARY_SKILL);
+        primarySkill?.CastPrimarySkill();
     }
 
     public override void OnSecondarySkillCasted()
     {
         throw new System.NotImplementedException();
     }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }

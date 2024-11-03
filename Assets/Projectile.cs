@@ -1,15 +1,10 @@
+using Unity.Netcode;
 using UnityEngine;
 
-public class Projectile : MonoBehaviour
+public class Projectile : NetworkBehaviour
 {
-    [SerializeField] private GameObject hitEffect;
-    [SerializeField] private float lifeTime = 0.75f;
-    [SerializeField] private float moveSpeed = 10f;
-    [SerializeField] private float damage = 5f;
-    [SerializeField] private float explosionRadius = 5f;
-    [SerializeField] private float knockbackForce = 5f;
-    Rigidbody rb;
-
+    [SerializeField] private ProjectileSO projectile;
+    private Rigidbody rb;
 
     private void Awake()
     {
@@ -18,22 +13,21 @@ public class Projectile : MonoBehaviour
 
     private void Start()
     {
-        if (moveSpeed > 0)
+        if (projectile.MoveSpeed > 0)
         {
-            rb.AddForce(transform.forward * moveSpeed, ForceMode.Impulse);
+            rb.AddForce(transform.forward * projectile.MoveSpeed, ForceMode.Impulse);
         }
 
-        Destroy(this.gameObject,lifeTime);
+        Destroy(this.gameObject,projectile.LifeTime);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Instantiate(hitEffect, transform.position, Quaternion.identity);
 
         #region AOE Damage
-        if (explosionRadius > 0)
+        if (projectile.ExplosionRadius > 0)
         {
-            Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
+            Collider[] colliders = Physics.OverlapSphere(transform.position, projectile.ExplosionRadius);
 
             foreach (Collider c in colliders)
             {
@@ -43,22 +37,50 @@ public class Projectile : MonoBehaviour
         }
         #endregion AOE Damage
 
-        #region SÝngle Target Damage
-        else if (other.CompareTag("Enemy")) //!Single target damage
+        #region Single Target Damage
+        else
         {
             OnEnemyHit(other);
         }
-        #endregion SÝngle Target Damage
+        #endregion Single Target Damage
 
-        Destroy(this.gameObject);
+        DespawnAndDestroy();
+    }
+
+    private void DespawnAndDestroy() //todo: A non-rpc method despawn an object. is it okay?
+    {
+        NetworkObject networkObject = GetComponent<NetworkObject>();
+
+        if (networkObject != null && networkObject.IsSpawned)
+        {
+            SpawnHitEffectServerRpc();
+
+            networkObject.Despawn(true);
+        }
+
+        Destroy(gameObject);
+    }
+
+    [ServerRpc]
+    private void SpawnHitEffectServerRpc()
+    {
+        
+        // Instantiate hit effect on the server
+        GameObject projectile1 = Instantiate(projectile.HitEffect, transform.position, Quaternion.identity);
+
+        // Get the NetworkObject component and spawn it on the network
+        if (projectile1.TryGetComponent<NetworkObject>(out var obj))
+        {
+            obj.Spawn(true);
+        }
     }
 
     void OnEnemyHit(Collider e)
     {
-        if(e.TryGetComponent<Enemy>(out var enemy))
+        if (e.TryGetComponent<IEnemyCombat>(out var enemy))
         {
-            enemy.KnockBack(transform.position, knockbackForce);
-            enemy.TakeDamage(damage);
+            enemy.KnockBack(transform.position, projectile.KnockbackForce);
+            enemy.TakeDamage(projectile.Damage);   
         }
     }
 

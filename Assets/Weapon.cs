@@ -20,15 +20,16 @@ public class Weapon : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Enemy") && canDealDamage)
+        if (canDealDamage)
         {
-            Enemy enemy = other.GetComponent<Enemy>();
-            enemy.TakeDamage(DamageAmount);
+            if(other.TryGetComponent<IEnemyCombat>(out var enemy))
+            {
+                enemy.TakeDamage(DamageAmount);
 
-            Vector3 hitPoint = other.ClosestPoint(transform.position);
-            Instantiate(hitEffectPrefab, hitPoint, Quaternion.identity);
-            enemy.KnockBack(hitPoint,forceMagnitude);
-            
+                Vector3 hitPoint = other.ClosestPoint(transform.position);
+                Instantiate(hitEffectPrefab, hitPoint, Quaternion.identity);
+                enemy.KnockBack(hitPoint, forceMagnitude);
+            }
         }
     }
 }

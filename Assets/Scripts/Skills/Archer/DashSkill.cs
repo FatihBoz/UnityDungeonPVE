@@ -1,5 +1,5 @@
 using System;
-using System.Collections;
+using Unity.Netcode;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -17,7 +17,7 @@ public class DashSkill : Skill , IPrimarySkill
 
     [Header("** Dodge Values **")]
     [SerializeField] private float dodgeDistance = 10f;
-    [SerializeField] private float dodgeTime = .4f;
+    [SerializeField] private float dodgeTime = .3f;
 
     private bool isDodging;
     private float dodgeStartTime;
@@ -31,8 +31,7 @@ public class DashSkill : Skill , IPrimarySkill
 
     public void CastPrimarySkill()
     {
-        print(canUse);
-        if (canUse)
+        if (canUse && NetworkObject.IsOwner)
         {
             StartDodge();
             StartCoroutine(Cooldown());
@@ -42,21 +41,27 @@ public class DashSkill : Skill , IPrimarySkill
 
     private Vector3 GetDodgeDirection()
     {
-        Vector3 moveDirection = archer.movement.MoveDirection;
+        Vector3 moveDirection = archer.MoveDirection;
         //if character does not move dash towards its own direction.Else dash according to movement.
         return !moveDirection.Equals(Vector3.zero) ? new Vector3(moveDirection.x, 0, moveDirection.y) : transform.forward;
     }
 
     private void StartDodge()
     {
+
         dodgeDirection = GetDodgeDirection();
         BeginDodgeMovement();
-        InstantiateBomb(BombShootPoint.position, Vector3.up * 3f);
+        InstantiateBombServerRpc(BombShootPoint.position, Vector3.up * 3f);
     }
 
-    private void InstantiateBomb(Vector3 position, Vector3 force)
+    [ServerRpc]
+    private void InstantiateBombServerRpc(Vector3 position, Vector3 force)
     {
         GameObject bomb = Instantiate(BombPrefab, position, Quaternion.identity);
+
+        NetworkObject bombNetworkObject = bomb.GetComponent<NetworkObject>();
+        bombNetworkObject.Spawn(true);
+
         if (bomb.TryGetComponent<Rigidbody>(out var rb))
         {
             rb.AddForce(force, ForceMode.Impulse);
@@ -77,7 +82,9 @@ public class DashSkill : Skill , IPrimarySkill
     {
         isDodging = true;
         dodgeStartTime = Time.time;
-        archer.anim.SetBool(AnimationKey.DODGE, isDodging);
+
+
+        CharacterAnimation.Instance.SetBool(AnimationKey.DODGE, isDodging);
     }
 
 
@@ -105,8 +112,12 @@ public class DashSkill : Skill , IPrimarySkill
     private void EndDodge()
     {
         isDodging = false;
-        archer.anim.SetBool(AnimationKey.DODGE, isDodging);
+
+        CharacterAnimation.Instance.SetBool(AnimationKey.DODGE, isDodging);
     }
 
-
+    protected override void UpgradeSkill()
+    {
+        throw new NotImplementedException();
+    }
 }

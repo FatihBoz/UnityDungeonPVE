@@ -5,9 +5,9 @@ public class Barbarian : MeleeCharacter  //Barbarian-specific implementation
 {
     public override void OnBasicAttackCasted()
     {
-        if(!isCasting)
+        if(!isCasting && NetworkObject.IsOwner)
         {
-            anim.PlayAnimation(AnimationKey.BASIC_ATTACK);
+            CharacterAnimation.Instance.SetTrigger(AnimationKey.BASIC_ATTACK);
         }
         
     }

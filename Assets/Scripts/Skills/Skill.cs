@@ -1,7 +1,8 @@
 using System.Collections;
+using Unity.Netcode;
 using UnityEngine;
 
-public abstract class Skill : MonoBehaviour
+public abstract class Skill : NetworkBehaviour
 {
     [Header("*** SKILL ATTRIBUTES ***")]
     [SerializeField]private Buff buff;
@@ -45,4 +46,6 @@ public abstract class Skill : MonoBehaviour
     }
 
     public Buff GetBuff() => buff;
+
+    protected abstract void UpgradeSkill();
 }

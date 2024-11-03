@@ -2,80 +2,66 @@ using UnityEngine;
 
 public class CharacterAttributes : MonoBehaviour
 {
-    public float DamageReduction { get; private set; }
-    public float AttackSpeed { get; private set; }
+    [Range(0, 1)]
+    [SerializeField] private float additionalAttackSpeedPercentage;
+    [SerializeField] private float baseMoveSpeed;
 
+    private float attackSpeed = 1f;
 
-    [SerializeField] private float BaseMoveSpeed;
+    private float damageReduction = 0f;
+
     private float currentMoveSpeed;
-    private CharacterAnimation anim;
+
+
+    #region GETTERS
+    public float MoveSpeed => currentMoveSpeed;
+    public float AttackSpeed => attackSpeed;
+    public float DamageReduction => damageReduction;
+
+    #endregion GETTERS
+
 
     private void Awake()
     {
-        anim = GetComponent<CharacterAnimation>();
+        currentMoveSpeed = baseMoveSpeed;
     }
 
     private void Start()
     {
-        currentMoveSpeed = BaseMoveSpeed;
-        DamageReduction = 0;
-        AttackSpeed = 1;
+        ChangeAttackSpeedBy(additionalAttackSpeedPercentage);
     }
 
     public void ApplyBuff(Buff buff)
     {
-        IncreaseDamageReduction(buff.DamageReduction);
-        IncreaseMovementSpeedByPercentage(buff.MoveSpeed);
-        IncreaseAttackSpeed(buff.AttackSpeed);
+        ChangeDamageReductionBy(buff.DamageReduction);
+        ChangeMovementSpeedBy(buff.MoveSpeed);
+        ChangeAttackSpeedBy(buff.AttackSpeed);
     }
 
     public void RemoveBuff(Buff buff)
     {
-        DecreaseAttackSpeed(buff.AttackSpeed);
-        DecreaseDamageReduction(buff.DamageReduction);
-        DecreaseMovementSpeedByPercentage(buff.MoveSpeed);
+        ChangeAttackSpeedBy(-buff.AttackSpeed);
+        ChangeDamageReductionBy(-buff.DamageReduction);
+        ChangeMovementSpeedBy(-buff.MoveSpeed);
     }
-
-    public void IncreaseAttackSpeed(float percentage)
+    public void ChangeAttackSpeedBy(float AS)
     {
-        AttackSpeed += percentage;
-        anim.SetAnimationSpeed(AttackSpeed);
+        attackSpeed += AS;
+        CharacterAnimation.Instance.SetAnimationSpeed(attackSpeed);
     }
 
-    public void DecreaseAttackSpeed(float percentage)
+    public void ChangeDamageReductionBy(float dr)
     {
-        AttackSpeed -= percentage;
-        anim.SetAnimationSpeed(AttackSpeed);
+        damageReduction += dr;
+        damageReduction = Mathf.Clamp01(damageReduction);
     }
 
-    public void IncreaseDamageReduction(float dr)
+    public void ChangeMovementSpeedBy(float moveSpeedPercentage)
     {
-        DamageReduction += dr;
-        print(DamageReduction);
+        currentMoveSpeed += baseMoveSpeed * moveSpeedPercentage;
     }
 
-    public void DecreaseDamageReduction(float dr)
-    {
-        DamageReduction -= dr;
-    }
+    
 
-    public void IncreaseMovementSpeedByPercentage(float percentage)
-    {
-        if (Mathf.Abs(percentage) > 1)
-            return;
-
-        currentMoveSpeed += BaseMoveSpeed * percentage;
-    }
-
-    public void DecreaseMovementSpeedByPercentage(float percentage)
-    {
-        if (Mathf.Abs(percentage) > 1)
-            return;
-
-        currentMoveSpeed -= BaseMoveSpeed * percentage;
-    }
-
-
-    public float MoveSpeed() => currentMoveSpeed;
 
 }

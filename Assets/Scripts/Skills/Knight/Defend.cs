@@ -16,7 +16,7 @@ public class Defend : Skill,IPrimarySkill
     {
         if (canUse && !knight.isCasting)
         {
-            knight.anim.SetBool(AnimationKey.PRIMARY_SKILL, true);
+            CharacterAnimation.Instance.SetTrigger(AnimationKey.BASIC_ATTACK);
             StartCoroutine(Buff(GetBuff()));
             StartCoroutine(Cooldown());
         }
@@ -29,19 +29,25 @@ public class Defend : Skill,IPrimarySkill
         //start skill casting
         knight.SetCasting(true);
         //make character cannot move in buff time
-        knight.movement.CanMove(false);
+        knight.CanMove(false);
+
         knight.characterAttributes.ApplyBuff(b);
+
         yield return new WaitForSeconds(b.Duration);
+
         knight.characterAttributes.RemoveBuff(b);
         //Finish the animation
-        knight.anim.SetBool(AnimationKey.PRIMARY_SKILL, false);
+        CharacterAnimation.Instance.SetBool(AnimationKey.PRIMARY_SKILL, false);
         //Finish skill casting
         knight.SetCasting(false);
         //Make character can move
-        knight.movement.CanMove(true);
+        knight.CanMove(true);
         //Environment can affect character now
         rb.isKinematic = false;
     }
 
-
+    protected override void UpgradeSkill()
+    {
+        throw new System.NotImplementedException();
+    }
 }

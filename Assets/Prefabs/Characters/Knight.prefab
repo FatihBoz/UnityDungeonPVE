@@ -84,6 +84,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Knight
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c956e7b70ec03724cb59b7a8775479fc, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 2856234247975315476, guid: c956e7b70ec03724cb59b7a8775479fc, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -110,9 +114,6 @@ PrefabInstance:
       addedObject: {fileID: 5339501758430205508}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c956e7b70ec03724cb59b7a8775479fc, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7036534795760567983}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c956e7b70ec03724cb59b7a8775479fc, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1235685317556310313}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c956e7b70ec03724cb59b7a8775479fc, type: 3}
       insertIndex: -1
@@ -129,6 +130,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c956e7b70ec03724cb59b7a8775479fc, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1252206307928994823}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c956e7b70ec03724cb59b7a8775479fc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -1343350067763644445}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c956e7b70ec03724cb59b7a8775479fc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7035897224420699836}
     - targetCorrespondingSourceObject: {fileID: 3862085102932151524, guid: c956e7b70ec03724cb59b7a8775479fc, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6163226989179988659}
@@ -299,19 +306,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77afc1a166c903c49a394928c87401fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7036534795760567983
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4177409000417215436}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0027a1f1153313e4580188a6127cbe22, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotationSpeed: 12
 --- !u!114 &1235685317556310313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -357,6 +351,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07bec243bd421984b9ee776296f33fe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationSpeed: 12
 --- !u!114 &3257435024039703108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -405,3 +400,49 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
+--- !u!114 &-1343350067763644445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4177409000417215436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38f650eee07b48c45838273c3a71a511, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SyncPositionX: 1
+  SyncPositionY: 0
+  SyncPositionZ: 1
+  SyncRotAngleX: 0
+  SyncRotAngleY: 1
+  SyncRotAngleZ: 0
+  SyncScaleX: 0
+  SyncScaleY: 0
+  SyncScaleZ: 0
+  PositionThreshold: 0.001
+  RotAngleThreshold: 0.01
+  ScaleThreshold: 0.01
+  InLocalSpace: 0
+  Interpolate: 1
+--- !u!114 &7035897224420699836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4177409000417215436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3251746ad3ce3045924336dcf3fab76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TransitionStateInfoList:
+  - Layer: 1
+    OriginatingState: 1757887940
+    DestinationState: -1370005879
+    TransitionDuration: 0.2
+    TriggerNameHash: -1761810982
+    TransitionIndex: 0
+  m_Animator: {fileID: 2934094975718339556}

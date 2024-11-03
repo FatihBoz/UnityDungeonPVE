@@ -13,10 +13,15 @@ public class SpinAttack : Skill, IPrimarySkill
 
     public void CastPrimarySkill()
     {
-        if (canUse && !barbarian.isCasting)
+        if (canUse && !barbarian.isCasting && NetworkObject.IsOwner)
         {
-            barbarian.anim.PlayAnimation(AnimationKey.PRIMARY_SKILL);
+            CharacterAnimation.Instance.SetTrigger(AnimationKey.PRIMARY_SKILL);
             StartCoroutine(Cooldown());
         }
+    }
+
+    protected override void UpgradeSkill()
+    {
+        throw new System.NotImplementedException();
     }
 }

@@ -80,6 +80,15 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""New action"",
+                    ""type"": ""Button"",
+                    ""id"": ""cb9eac0a-8158-41bc-b671-ec605d4e7763"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -192,6 +201,17 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
                     ""action"": ""SecondarySkill"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7cda796b-9ce8-4baf-93b1-8e8f93b79394"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""New action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -229,6 +249,7 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
         m_Player_UtilitySkill = m_Player.FindAction("UtilitySkill", throwIfNotFound: true);
         m_Player_PrimarySkill = m_Player.FindAction("PrimarySkill", throwIfNotFound: true);
         m_Player_SecondarySkill = m_Player.FindAction("SecondarySkill", throwIfNotFound: true);
+        m_Player_Newaction = m_Player.FindAction("New action", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -296,6 +317,7 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_UtilitySkill;
     private readonly InputAction m_Player_PrimarySkill;
     private readonly InputAction m_Player_SecondarySkill;
+    private readonly InputAction m_Player_Newaction;
     public struct PlayerActions
     {
         private @PlayerControl m_Wrapper;
@@ -306,6 +328,7 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
         public InputAction @UtilitySkill => m_Wrapper.m_Player_UtilitySkill;
         public InputAction @PrimarySkill => m_Wrapper.m_Player_PrimarySkill;
         public InputAction @SecondarySkill => m_Wrapper.m_Player_SecondarySkill;
+        public InputAction @Newaction => m_Wrapper.m_Player_Newaction;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -333,6 +356,9 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
             @SecondarySkill.started += instance.OnSecondarySkill;
             @SecondarySkill.performed += instance.OnSecondarySkill;
             @SecondarySkill.canceled += instance.OnSecondarySkill;
+            @Newaction.started += instance.OnNewaction;
+            @Newaction.performed += instance.OnNewaction;
+            @Newaction.canceled += instance.OnNewaction;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -355,6 +381,9 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
             @SecondarySkill.started -= instance.OnSecondarySkill;
             @SecondarySkill.performed -= instance.OnSecondarySkill;
             @SecondarySkill.canceled -= instance.OnSecondarySkill;
+            @Newaction.started -= instance.OnNewaction;
+            @Newaction.performed -= instance.OnNewaction;
+            @Newaction.canceled -= instance.OnNewaction;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -398,5 +427,6 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
         void OnUtilitySkill(InputAction.CallbackContext context);
         void OnPrimarySkill(InputAction.CallbackContext context);
         void OnSecondarySkill(InputAction.CallbackContext context);
+        void OnNewaction(InputAction.CallbackContext context);
     }
 }
