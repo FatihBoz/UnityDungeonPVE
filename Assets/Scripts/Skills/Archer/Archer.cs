@@ -1,3 +1,4 @@
+using Unity.Netcode;
 using UnityEngine;
 
 public class Archer : RangedCharacter
@@ -12,21 +13,30 @@ public class Archer : RangedCharacter
     public override void OnAttackStart() => throw new System.NotImplementedException();
 
 
-    public void ShootArrow()
+    //Allow non-owners to call this method
+    [ServerRpc]
+    public void ShootArrowServerRpc()
     {
-        Instantiate(ArrowPrefab, ArrowShootPoint.position, transform.rotation);
+        GameObject arrow = Instantiate(ArrowPrefab, ArrowShootPoint.position, transform.rotation);
+
+        NetworkObject arrowNetworkObject = arrow.GetComponent<NetworkObject>();
+        arrowNetworkObject.Spawn(true);
+
     }
 
     //Basic attack arrow shooting animation event
     public void Shoot()
     {
-        ShootArrow();
+        if (IsOwner)
+        {
+            ShootArrowServerRpc();
+        }   
     }
 
 
     public override void OnBasicAttackCasted()
     {
-        if (!isCasting)
+        if (!isCasting && NetworkObject.IsOwner)
         {
             CharacterAnimation.Instance.SetTrigger(AnimationKey.BASIC_ATTACK);
         }

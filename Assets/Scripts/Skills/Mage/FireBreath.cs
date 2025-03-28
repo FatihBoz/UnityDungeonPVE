@@ -1,3 +1,4 @@
+using Unity.Netcode;
 using UnityEngine;
 
 public class FireBreath : Skill, IPrimarySkill  //TODO: canUse ve isCasting kontrol ve kullanýmý
